@@ -5,6 +5,8 @@ import com.esen.java_kanban_rework.dto.TaskDTO;
 import com.esen.java_kanban_rework.entity.Board;
 import com.esen.java_kanban_rework.entity.Task;
 import com.esen.java_kanban_rework.entity.User;
+import com.esen.java_kanban_rework.mappers.BoardMapper;
+import com.esen.java_kanban_rework.mappers.TaskMapper;
 import com.esen.java_kanban_rework.repository.BoardRepository;
 import com.esen.java_kanban_rework.repository.TaskRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -28,14 +30,7 @@ public class BoardService {
 
     public List<BoardDTO> listBoardsForUser() {
         List<Board> boards = boardRepository.findAll();
-        List<BoardDTO> boardListGetResponse = new ArrayList<BoardDTO>();
-        for (Board board: boards) {
-            boardListGetResponse.add(BoardDTO.builder()
-                    .id(board.getId())
-                    .name(board.getName())
-                    .build());
-        }
-        return boardListGetResponse;
+        return BoardMapper.toDTOList(boards);
     }
 
 
@@ -57,17 +52,7 @@ public class BoardService {
             throw new EntityNotFoundException("Board not found with id " + boardId);
         }
         List<Task> tasks = taskRepository.findAllByBoardId(boardId);
-        List <TaskDTO> taskListGetResponse = new ArrayList<TaskDTO>();
-        for (Task task : tasks) {
-            taskListGetResponse.add(TaskDTO.builder()
-                    .boardId(task.getBoard().getId())
-                    .title(task.getTitle())
-                    .description(task.getDescription())
-                    .id(task.getId())
-                    .status(task.getStatus())
-                    .build());
-        }
-        return taskListGetResponse;
+        return TaskMapper.toDTOList(tasks);
     }
 
 

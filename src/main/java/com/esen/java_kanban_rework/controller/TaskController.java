@@ -2,12 +2,15 @@ package com.esen.java_kanban_rework.controller;
 
 import com.esen.java_kanban_rework.dto.TaskDTO;
 import com.esen.java_kanban_rework.service.TaskService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/tasks")
+@Tag(name = "Task Management", description = "Operations for managing tasks")
 public class TaskController {
 
     private final TaskService taskService;
@@ -18,6 +21,9 @@ public class TaskController {
     }
 
     @PostMapping("/")
+    @Operation(
+            summary = "Create task"
+    )
     public ResponseEntity<Void> createTask(@RequestBody TaskDTO newTask) {
         taskService.createTask(newTask);
         return ResponseEntity.noContent().build();

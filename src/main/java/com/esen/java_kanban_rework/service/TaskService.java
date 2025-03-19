@@ -4,6 +4,7 @@ package com.esen.java_kanban_rework.service;
 import com.esen.java_kanban_rework.dto.TaskDTO;
 import com.esen.java_kanban_rework.entity.Board;
 import com.esen.java_kanban_rework.entity.Task;
+import com.esen.java_kanban_rework.mappers.TaskMapper;
 import com.esen.java_kanban_rework.repository.TaskRepository;
 import com.esen.java_kanban_rework.exception_handlers.NoFieldsProvidedException;
 import com.esen.java_kanban_rework.utils.TaskStatus;
@@ -39,13 +40,7 @@ public class TaskService {
 
     public TaskDTO getTaskByIdForUser(Long taskId) {
         Task task = getTaskById(taskId);
-        return TaskDTO.builder()
-                .id(task.getId())
-                .title(task.getTitle())
-                .description(task.getDescription())
-                .status(task.getStatus())
-                .boardId(task.getBoard().getId())
-                .build();
+        return TaskMapper.toDTO(task);
     }
 
     public void deleteTask(Long taskId) {

@@ -6,6 +6,7 @@ import com.esen.java_kanban_rework.repository.BoardRepository;
 import com.esen.java_kanban_rework.repository.TaskRepository;
 import com.esen.java_kanban_rework.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
+@Slf4j
 public class BootstrapData implements CommandLineRunner {
     private final UserRepository userRepository;
     private final BoardRepository boardRepository;
@@ -38,6 +40,7 @@ public class BootstrapData implements CommandLineRunner {
                 .password("123456")
                 .build();
 
+        log.info("Creating boards");
         userRepository.saveAll(List.of(user1, user2));
 
         Board board1 = Board.builder()
@@ -48,6 +51,7 @@ public class BootstrapData implements CommandLineRunner {
                 .name("Job tasks")
                 .build();
 
+        log.info("Creating users");
         boardRepository.saveAll(List.of(board1, board2));
 
         Task task1 = Task.builder()
@@ -82,6 +86,7 @@ public class BootstrapData implements CommandLineRunner {
                 .description("New server needs to be added to our server pool")
                 .build();
 
+        log.info("Creating tasks");
         taskRepository.saveAll(List.of(task1, task2, task3, task4));
         return;
     }
@@ -90,7 +95,6 @@ public class BootstrapData implements CommandLineRunner {
     public void run(String... args) throws Exception {
         if (userRepository.count() == 0) {
             createInitData();
-            System.out.println(userRepository.findAll());
         }
     }
 }

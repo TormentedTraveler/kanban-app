@@ -2,7 +2,9 @@ package com.esen.java_kanban_rework.controller;
 
 import com.esen.java_kanban_rework.dto.BoardDTO;
 import com.esen.java_kanban_rework.dto.TaskDTO;
+import com.esen.java_kanban_rework.mappers.BoardMapper;
 import com.esen.java_kanban_rework.service.BoardService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/boards")
+@Tag(name = "Board Management", description = "Operations for managing boards")
 public class BoardController {
 
     private final BoardService boardService;
