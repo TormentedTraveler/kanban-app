@@ -1,41 +1,43 @@
 package com.esen.java_kanban_rework.utils;
+import com.esen.java_kanban_rework.entity.User;
 import com.esen.java_kanban_rework.repository.UserRepository;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 
 @Component
-@Profile("dev") // This will only run in the "dev" profile
-public class BootstrapData {
-//    private final UserRepository userRepository;
-//
-//    public DataBootstrap(UserRepository userRepository) {
-//        this.userRepository = userRepository;
-//    }
+public class BootstrapData implements CommandLineRunner {
+    private final UserRepository userRepository;
 
-    private void parseCsvString() {
-//        String csvData = """
-//                id,name,email
-//                1,John Doe,john@example.com
-//                2,Jane Smith,jane@example.com
-//                3,Bob Johnson,bob@example.com
-//                """;
-//
-//        List<User> users = new ArrayList<>();
-//        String[] lines = csvData.split("\n");
-//
-//        for (int i = 1; i < lines.length; i++) { // Skip the header
-//            String[] columns = lines[i].split(",");
-//            if (columns.length == 3) {
-//                User user = new User();
-//                user.setId(Long.parseLong(columns[0]));
-//                user.setName(columns[1]);
-//                user.setEmail(columns[2]);
-//                users.add(user);
-//            }
-//        }
+    public BootstrapData(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
+    private void createUsers() {
+        User user1 = User.builder()
+                .email("test@mail.com")
+                .firstname("test")
+                .lastname("test")
+                .password("123456")
+                .build();
+        User user2 = User.builder()
+                .email("test2@mail.com")
+                .firstname("test2")
+                .lastname("test2")
+                .password("123456")
+                .build();
+
+        userRepository.saveAll(List.of(user1, user2));
         return;
     }
 
+    @Override
+    public void run(String... args) throws Exception {
+        if (userRepository.count() == 0) {
+            createUsers();
+            System.out.println(userRepository.findAll());
+        }
+    }
 }
