@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.boot.context.properties.bind.DefaultValue;
 
 @Entity
 @Table
@@ -21,7 +22,7 @@ public class Task {
     private String description;
     private String color;
     @Enumerated(EnumType.STRING)
-    private TaskStatus status;
+    private TaskStatus status = TaskStatus.TO_DO;
 
     @ManyToOne()
     @JoinColumn(name = "board_id")
