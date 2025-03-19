@@ -54,7 +54,7 @@ public class BoardService {
 
     public List<TaskDTO> listTasksForBoard(Long boardId) {
         if (!boardRepository.existsById(boardId)) {
-            throw new EntityNotFoundException("board not found");
+            throw new EntityNotFoundException("Board not found with id " + boardId);
         }
         List<Task> tasks = taskRepository.findAllByBoardId(boardId);
         List <TaskDTO> taskListGetResponse = new ArrayList<TaskDTO>();
