@@ -5,12 +5,10 @@ import com.esen.java_kanban_rework.dto.TaskDTO;
 import com.esen.java_kanban_rework.entity.Board;
 import com.esen.java_kanban_rework.entity.Task;
 import com.esen.java_kanban_rework.repository.TaskRepository;
-import com.esen.java_kanban_rework.utils.NoFieldsProvidedException;
+import com.esen.java_kanban_rework.exception_handlers.NoFieldsProvidedException;
 import com.esen.java_kanban_rework.utils.TaskStatus;
 import jakarta.persistence.EntityNotFoundException;
-import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 
 import java.util.Optional;
 

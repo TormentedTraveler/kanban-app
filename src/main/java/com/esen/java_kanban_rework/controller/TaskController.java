@@ -23,7 +23,6 @@ public class TaskController {
         return ResponseEntity.noContent().build();
     }
 
-
     @GetMapping("/{taskId}")
     public ResponseEntity<TaskDTO> getTaskByIdForUser(@PathVariable("taskId") Long taskId) {
         return ResponseEntity.ok(taskService.getTaskByIdForUser(taskId));

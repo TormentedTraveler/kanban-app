@@ -41,13 +41,13 @@ public class BoardController {
         return ResponseEntity.noContent().build();
     }
 
-    @PatchMapping("/{boardId}") // to be done
+    @PatchMapping("/{boardId}")
     public ResponseEntity<Void> updateBoard(@PathVariable Long boardId, @RequestBody BoardDTO updatedBoard) {
         boardService.updateBoard(boardId, updatedBoard);
         return ResponseEntity.noContent().build();
     }
 
-    @DeleteMapping("/{boardId}") // to be done
+    @DeleteMapping("/{boardId}")
     public ResponseEntity<Void> deleteBoard(@PathVariable Long boardId) {
         boardService.deleteBoard(boardId);
         return ResponseEntity.noContent().build();

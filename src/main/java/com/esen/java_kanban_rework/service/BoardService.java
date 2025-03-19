@@ -7,19 +7,8 @@ import com.esen.java_kanban_rework.entity.Task;
 import com.esen.java_kanban_rework.entity.User;
 import com.esen.java_kanban_rework.repository.BoardRepository;
 import com.esen.java_kanban_rework.repository.TaskRepository;
-import com.java_crud.config.JwtService;
-import com.java_crud.exception_handlers.NoFieldsProvidedException;
-import com.java_crud.task.Task;
-import com.java_crud.task.TaskGetResponse;
-import com.java_crud.task.TaskRepository;
-import com.java_crud.user.UserRepository;
-import com.java_crud.user.UserService;
 import jakarta.persistence.EntityNotFoundException;
-import org.springframework.dao.DataAccessException;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestHeader;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,6 +53,9 @@ public class BoardService {
     }
 
     public List<TaskDTO> listTasksForBoard(Long boardId) {
+        if (!boardRepository.existsById(boardId)) {
+            throw new EntityNotFoundException("board not found");
+        }
         List<Task> tasks = taskRepository.findAllByBoardId(boardId);
         List <TaskDTO> taskListGetResponse = new ArrayList<TaskDTO>();
         for (Task task : tasks) {
