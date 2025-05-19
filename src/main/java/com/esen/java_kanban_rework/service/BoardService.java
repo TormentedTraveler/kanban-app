@@ -63,7 +63,6 @@ public class BoardService {
     }
 
     public void deleteBoard(Long boardId) {
-        Board board = getBoardById(boardId);
         boardRepository.deleteById(boardId);
     }
 }
